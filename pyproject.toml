@@ -1,0 +1,38 @@
+[build-system]
+requires = ["uv_build"]
+build-backend = "uv_build"
+
+[project]
+name = "textual-editor"
+version = "0.1.0"
+description = "A Textual widget embedding an external text editor"
+license = { file = "LICENSE" }
+authors = [
+  { name = "David Brochart", email = "david.brochart@gmail.com" },
+]
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+
+dependencies = [
+  "anyio",
+  "pyte",
+  "rich",
+  "textual",
+  "wcwidth",
+]
+
+[project.urls]
+Homepage = "https://github.com/davidbrochart/textual-editor"
