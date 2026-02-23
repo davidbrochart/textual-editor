@@ -36,3 +36,6 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://github.com/davidbrochart/textual-editor"
+
+[project.scripts]
+textual-editor = "textual_editor.demo:main"

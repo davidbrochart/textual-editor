@@ -11,7 +11,9 @@ class EditorApp(App):
         yield Editor(path="vim", content='print("Hello, World!")', language="py")
         yield Footer()
 
-
-if __name__ == "__main__":
+def main():
     app = EditorApp()
     app.run()
+
+if __name__ == "__main__":
+    main()
