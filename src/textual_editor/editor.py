@@ -32,6 +32,10 @@ KEYS = {
     "delete": "\u001b[3~",
     "pageup": "\u001b[5~",
     "pagedown": "\u001b[6~",
+    "ctrl+left": "\u001b[1;5C",
+    "ctrl+right": "\u001b[1;5D",
+    "ctrl+up": "\u001b[1;5A",
+    "ctrl+down": "\u001b[1;5B",
 }
 
 wcwidth: Callable[[str], int] = lru_cache(maxsize=4096)(_wcwidth)
