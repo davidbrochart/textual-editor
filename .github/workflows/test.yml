@@ -31,7 +31,7 @@ jobs:
       - name: Install textual-editor
         run: |
           uv venv --clear
-          uv pip install -e --group dev
+          uv pip install -e . --group dev
 
       - name: Check types
         run: ty src
