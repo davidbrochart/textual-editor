@@ -1,5 +1,9 @@
 # Version history
 
+## 0.1.2
+
+- Add `textual-editor` CLI.
+
 ## 0.1.1
 
 - Add support for some control keys.

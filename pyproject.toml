@@ -4,7 +4,7 @@ build-backend = "uv_build"
 
 [project]
 name = "textual-editor"
-version = "0.1.1"
+version = "0.1.2"
 description = "A Textual widget embedding an external text editor"
 license = { file = "LICENSE" }
 authors = [
