@@ -161,10 +161,17 @@ class Editor(Widget, can_focus=True):
             self._editor_fd = self._open_editor(cast(str, self._tempfile.name))
             self._editor_file = os.fdopen(self._editor_fd, "w+b", 0)
             self._editor_created.set()
+            data_list = []
             try:
                 while True:
                     await wait_readable(self._editor_file)
-                    data = self._editor_file.read(65536).decode()
+                    data = self._editor_file.read(65536)
+                    data_list.append(data)
+                    try:
+                        data = (b"".join(data_list)).decode()
+                    except Exception:
+                        continue
+                    data_list.clear()
                     self._terminal._stream.feed(data)
                     # rerender lines where cursor moved from/to:
                     if (
@@ -196,11 +203,36 @@ class Editor(Widget, can_focus=True):
         size = struct.pack("HH", self._nrow, self._ncol)
         fcntl.ioctl(self._editor_fd, termios.TIOCSWINSZ, size)
 
-    async def on_key(self, event: events.Key) -> None:
-        assert self._terminal is not None
-        if self._terminal._content is not None:
+    async def on_event(self, event: events.Event) -> None:
+        await super().on_event(event)
+
+        if isinstance(event, events.Key):
+            assert self._terminal is not None
+            if self._terminal._content is not None:
+                return
+
+            char = KEYS.get(event.key, event.character)
+            if char is None:
+                return
+
+            self._editor_file.write(char.encode())
+            event.stop()
             return
 
-        char = KEYS.get(event.key, event.character)
-        self._editor_file.write(char.encode())
-        event.stop()
+        if isinstance(event, events.MouseMove):
+            char = f"\x1b[<35;{event.x + 1};{event.y + 1}M"
+            self._editor_file.write(char.encode())
+            event.stop()
+            return
+
+        if isinstance(event, events.MouseDown):
+            char = f"\x1b[<0;{event.x + 1};{event.y + 1}M"
+            self._editor_file.write(char.encode())
+            event.stop()
+            return
+
+        if isinstance(event, events.MouseUp):
+            char = f"\x1b[<0;{event.x + 1};{event.y + 1}m"
+            self._editor_file.write(char.encode())
+            event.stop()
+            return
