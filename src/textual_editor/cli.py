@@ -6,6 +6,7 @@ from textual_editor import Editor
 
 app = App()
 
+
 @app.default
 def main(
     path: str = "vim",
