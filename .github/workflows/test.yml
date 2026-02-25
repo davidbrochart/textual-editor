@@ -30,7 +30,7 @@ jobs:
           activate-environment: "true"
       - name: Install textual-editor
         run: |
-          uv venv
+          uv venv --clear
           uv pip install -e --group dev
 
       - name: Check types
