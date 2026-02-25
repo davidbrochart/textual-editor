@@ -28,14 +28,21 @@ classifiers = [
 
 dependencies = [
   "anyio",
+  "cyclopts >=4.6.0,<5.0.0",
   "pyte",
   "rich",
   "textual",
   "wcwidth",
 ]
 
+[dependency-groups]
+dev = [
+  "ty",
+  "ruff",
+]
+
 [project.urls]
 Homepage = "https://github.com/davidbrochart/textual-editor"
 
 [project.scripts]
-textual-editor = "textual_editor.demo:main"
+textual-editor = "textual_editor.cli:app"

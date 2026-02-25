@@ -1,0 +1,42 @@
+name: test
+
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Tests
+    runs-on: ${{ matrix.os }}-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu, macos, windows]
+        python-version: [ '3.10', '3.11', '3.12', '3.13', '3.14' ]
+
+    steps:
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+          activate-environment: "true"
+      - name: Install textual-editor
+        run: |
+          uv venv
+          uv pip install -e --group dev
+
+      - name: Check types
+        run: ty src
+
+      - name: Lint
+        run: |
+          ruff check src
+          ruff format --check src
