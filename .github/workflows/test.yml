@@ -34,7 +34,7 @@ jobs:
           uv pip install -e . --group dev
 
       - name: Check types
-        run: ty src
+        run: ty check src
 
       - name: Lint
         run: |
