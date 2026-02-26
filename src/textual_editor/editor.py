@@ -76,14 +76,8 @@ class Terminal:
                 reverse = char.reverse
                 if x == self._screen.cursor.x and y == self._screen.cursor.y:
                     reverse = not reverse
-                try:
-                    color = Color.from_triplet(parse_rgb_hex(char.fg))
-                except Exception:
-                    color = None if char.fg == "default" else char.fg
-                try:
-                    bgcolor = Color.from_triplet(parse_rgb_hex(char.bg))
-                except Exception:
-                    bgcolor = None if char.bg == "default" else char.bg
+                color = get_color(char.fg)
+                bgcolor = get_color(char.bg)
                 segments.append(
                     Segment(
                         char.data,
@@ -236,3 +230,15 @@ class Editor(Widget, can_focus=True):
             self._editor_file.write(char.encode())
             event.stop()
             return
+
+
+def get_color(color: str) -> str:
+    try:
+        return Color.from_triplet(parse_rgb_hex(color))
+    except Exception:
+        match color:
+            case "default":
+                return None
+            case "brown":
+                return "orange4"
+        return color
