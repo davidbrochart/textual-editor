@@ -232,7 +232,7 @@ class Editor(Widget, can_focus=True):
             return
 
 
-def get_color(color: str) -> str:
+def get_color(color: str) -> Color | str | None:
     try:
         return Color.from_triplet(parse_rgb_hex(color))
     except Exception:
