@@ -1,5 +1,9 @@
 # Version history
 
+## 0.1.4
+
+- Fix brown color.
+
 ## 0.1.3
 
 - Support mouse.
