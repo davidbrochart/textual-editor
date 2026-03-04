@@ -1,3 +1,7 @@
+<p align="center" width="100%">
+<img width="3834" height="1826" alt="Image" src="https://github.com/user-attachments/assets/8ec1f5ad-0d91-4bab-be8b-9d457d38a4ac" />
+</p>
+
 # textual-editor
 
 A [Textual](https://github.com/Textualize/textual) widget embedding an external editor.
